@@ -1,0 +1,132 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+linkedin-bot
+linkedin-bot.exe
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Go workspace file
+go.work
+
+# Dependency directories
+vendor/
+
+# Environment variables - NEVER COMMIT CREDENTIALS!
+.env
+.env.local
+.env.*.local
+
+# Database files - Contains user data
+*.db
+*.db-shm
+*.db-wal
+data/
+*.sqlite
+*.sqlite3
+
+# Log files
+logs/
+*.log
+
+# Browser data - Contains session cookies and cache
+browser-data/
+*.crdownload
+
+# Downloads
+downloads/
+
+# Session files
+session.json
+*.session
+
+# OS-specific files
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Linux
+*~
+.directory
+
+# IDE and Editor files
+# VS Code
+.vscode/
+*.code-workspace
+
+# JetBrains IDEs
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# Build artifacts
+build/
+dist/
+bin/
+
+# Coverage reports
+coverage.html
+coverage.out
+coverage.txt
+
+# Crash logs
+crash.log
+panic.log
+
+# Debug files
+debug.log
+debug/
+
+# Local config overrides
+config.local.yaml
+config.override.yaml
+
+# Screenshots (if automation takes any)
+screenshots/
+*.png
+*.jpg
+*.jpeg
+
+# Performance profiles
+*.prof
+*.pprof
+
+# Any compiled object files
+*.o
+*.a
