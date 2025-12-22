@@ -1,100 +1,487 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feed - MockedIn</title>
-    <link rel="stylesheet" href="feed-style.css">
-</head>
-<body>
-    <nav class="global-nav">
-        <div class="nav-container">
-            <div class="nav-left">
-                <h1 class="logo">MockedIn</h1>
-                <div class="search-bar">
-                    <input type="text" placeholder="Search">
-                </div>
-            </div>
-            <div class="nav-right">
-                <img src="https://via.placeholder.com/32" alt="Profile" class="global-nav__me-photo">
-            </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feed | LinkedIn</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="feed-style.css" />
+  </head>
+  <body>
+    <!-- Global Navigation -->
+    <header class="global-nav">
+      <div class="nav-container">
+        <div class="nav-left">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="34"
+            height="34"
+            viewBox="0 0 34 34"
+            class="nav-logo"
+          >
+            <g>
+              <path
+                d="M34,2.5v29A2.5,2.5,0,0,1,31.5,34H2.5A2.5,2.5,0,0,1,0,31.5V2.5A2.5,2.5,0,0,1,2.5,0h29A2.5,2.5,0,0,1,34,2.5ZM10,13H5V29h5Zm.45-5.5A2.88,2.88,0,0,0,7.59,4.6H7.5a2.9,2.9,0,0,0,0,5.8h0a2.88,2.88,0,0,0,2.95-2.81ZM29,19.28c0-4.81-3.06-6.68-6.1-6.68a5.7,5.7,0,0,0-5.06,2.58H17.7V13H13V29h5V20.49a3.32,3.32,0,0,1,3-3.58h.19c1.59,0,2.77,1,2.77,3.52V29h5Z"
+                fill="#0a66c2"
+              ></path>
+            </g>
+          </svg>
+
+          <div class="search-box">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              class="search-icon"
+            >
+              <path
+                d="M14.82 14.16l-3.58-3.58A6.5 6.5 0 1 0 10.58 11.24l3.58 3.58zM2 6.5a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0z"
+                fill="rgba(0,0,0,0.6)"
+              />
+            </svg>
+            <input type="text" placeholder="Search" class="search-input" />
+          </div>
         </div>
-    </nav>
-    
-    <div class="main-container">
-        <aside class="sidebar">
-            <div class="card">
-                <h3>Profile</h3>
-                <p>Test User</p>
-                <p class="subtitle">Automation Tester</p>
+
+        <nav class="nav-menu">
+          <a href="#" class="nav-item active">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <span>Home</span>
+          </a>
+          <a href="#" class="nav-item">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+            <span>My Network</span>
+            <span class="badge">12</span>
+          </a>
+          <a href="#" class="nav-item">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+            </svg>
+            <span>Jobs</span>
+          </a>
+          <a href="#" class="nav-item">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+              ></path>
+            </svg>
+            <span>Messaging</span>
+            <span class="badge">3</span>
+          </a>
+          <a href="#" class="nav-item">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+            <span>Notifications</span>
+            <span class="badge">5</span>
+          </a>
+          <a href="#" class="nav-item">
+            <img
+              src="https://via.placeholder.com/24"
+              alt="Me"
+              class="nav-avatar"
+            />
+            <span>Me</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="12"
+              height="12"
+              viewBox="0 0 12 12"
+              class="dropdown-icon"
+            >
+              <path d="M6 9l4-5H2z" fill="rgba(0,0,0,0.6)" />
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <div class="main-layout">
+      <div class="content-wrapper">
+        <!-- Left Sidebar -->
+        <aside class="sidebar-left">
+          <div class="card profile-card">
+            <div class="profile-cover"></div>
+            <div class="profile-info">
+              <img
+                src="https://via.placeholder.com/72"
+                alt="Profile"
+                class="profile-avatar"
+              />
+              <h3 class="profile-name">Test User</h3>
+              <p class="profile-headline">
+                Automation Testing Engineer | QA Specialist
+              </p>
             </div>
+            <div class="profile-stats">
+              <div class="stat-row">
+                <span class="stat-label">Profile viewers</span>
+                <span class="stat-value">127</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-label">Post impressions</span>
+                <span class="stat-value">1,043</span>
+              </div>
+            </div>
+            <div class="profile-premium">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="#915907">
+                <rect x="1" y="1" width="14" height="14" rx="2" />
+              </svg>
+              <span>Try Premium for free</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3>Recent</h3>
+            </div>
+            <div class="recent-list">
+              <a href="#" class="recent-item">JavaScript Developers</a>
+              <a href="#" class="recent-item">React Community</a>
+              <a href="#" class="recent-item">Tech Startups Network</a>
+            </div>
+          </div>
         </aside>
-        
-        <main class="feed">
-            <div class="card">
-                <h2>✅ Login Successful!</h2>
-                <p>You have successfully logged in to the test site.</p>
-                <p class="success-message">
-                    Your automation bot can now test:<br>
-                    • Navigation detection<br>
-                    • Element interaction<br>
-                    • Session persistence<br>
+
+        <!-- Main Feed -->
+        <main class="feed-main">
+          <!-- Success Card -->
+          <div class="card success-card">
+            <div class="success-icon">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="#057642">
+                <circle cx="24" cy="24" r="24" fill="#d4edda" />
+                <path
+                  d="M20 28l-6-6 2-2 4 4 10-10 2 2z"
+                  fill="#057642"
+                  stroke-width="2"
+                />
+              </svg>
+            </div>
+            <div class="success-content">
+              <h2>✅ Login Successful!</h2>
+              <p>You have successfully logged in to the test environment.</p>
+            </div>
+          </div>
+
+          <!-- Automation Detection Card -->
+          <div class="card detection-card">
+            <h3>Automation Detection Test</h3>
+            <div class="detection-result" id="detectionStatus">
+              <div class="loader"></div>
+              <span>Checking automation detection...</span>
+            </div>
+            <div class="detection-details">
+              <div class="detail-row">
+                <span class="detail-label">navigator.webdriver:</span>
+                <span class="detail-value" id="webdriverValue"
+                  >checking...</span
+                >
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">User Agent:</span>
+                <span class="detail-value user-agent" id="userAgent"
+                  >loading...</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Start a Post -->
+          <div class="card start-post">
+            <div class="post-input-wrapper">
+              <img
+                src="https://via.placeholder.com/48"
+                alt="You"
+                class="post-avatar"
+              />
+              <button class="post-button">Start a post</button>
+            </div>
+            <div class="post-actions">
+              <button class="action-btn">
+                <svg width="24" height="24" fill="#378fe9">
+                  <rect x="2" y="8" width="20" height="12" rx="2" />
+                </svg>
+                <span>Photo</span>
+              </button>
+              <button class="action-btn">
+                <svg width="24" height="24" fill="#5f9b41">
+                  <path
+                    d="M19 4H5a3 3 0 00-3 3v10a3 3 0 003 3h14a3 3 0 003-3V7a3 3 0 00-3-3z"
+                  />
+                </svg>
+                <span>Video</span>
+              </button>
+              <button class="action-btn">
+                <svg width="24" height="24" fill="#e16745">
+                  <circle cx="12" cy="12" r="10" />
+                </svg>
+                <span>Event</span>
+              </button>
+              <button class="action-btn">
+                <svg width="24" height="24" fill="#fc9295">
+                  <path d="M4 6h16v12H4z" />
+                </svg>
+                <span>Write article</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Feed Posts -->
+          <article class="card post-card">
+            <div class="post-header">
+              <img
+                src="https://via.placeholder.com/48"
+                alt="User"
+                class="post-avatar"
+              />
+              <div class="post-meta">
+                <h4 class="post-author">Sarah Johnson</h4>
+                <p class="post-info">
+                  Senior Software Engineer at TechCorp • 2nd
                 </p>
+                <p class="post-time">2h • 🌐</p>
+              </div>
+              <button class="post-more">⋯</button>
             </div>
-            
-            <div class="card post">
-                <div class="post-header">
-                    <img src="https://via.placeholder.com/48" alt="User">
-                    <div>
-                        <h4>John Doe</h4>
-                        <p class="subtitle">Software Engineer at Test Corp</p>
-                    </div>
-                </div>
-                <div class="post-content">
-                    <p>This is a sample post to test scrolling and content reading behavior.</p>
-                </div>
+            <div class="post-content">
+              <p>
+                Excited to announce that I'll be speaking at the upcoming DevCon
+                2025! 🚀 My session will cover best practices for building
+                scalable microservices architectures.
+              </p>
+              <p>#DevCon2025 #Microservices #SoftwareEngineering</p>
             </div>
-            
-            <div class="card post">
-                <div class="post-header">
-                    <img src="https://via.placeholder.com/48" alt="User">
-                    <div>
-                        <h4>Jane Smith</h4>
-                        <p class="subtitle">Product Manager at Innovation Inc</p>
-                    </div>
-                </div>
-                <div class="post-content">
-                    <p>Another test post for automation testing. Your bot should be able to scroll and read this content.</p>
-                </div>
+            <div class="post-stats">
+              <span class="post-reactions">Sarah and 234 others</span>
+              <span class="post-comments">42 comments</span>
             </div>
+            <div class="post-actions">
+              <button class="post-action">
+                <svg width="20" height="20" fill="rgba(0,0,0,0.6)">
+                  <path d="M10 3l2 6h6l-5 4 2 6-5-4-5 4 2-6-5-4h6z" />
+                </svg>
+                <span>Like</span>
+              </button>
+              <button class="post-action">
+                <svg width="20" height="20" fill="rgba(0,0,0,0.6)">
+                  <path d="M7 9h10v10H7z" />
+                </svg>
+                <span>Comment</span>
+              </button>
+              <button class="post-action">
+                <svg width="20" height="20" fill="rgba(0,0,0,0.6)">
+                  <path d="M5 5h14v14H5z" />
+                </svg>
+                <span>Repost</span>
+              </button>
+              <button class="post-action">
+                <svg width="20" height="20" fill="rgba(0,0,0,0.6)">
+                  <path d="M3 12l9-9 9 9" />
+                </svg>
+                <span>Send</span>
+              </button>
+            </div>
+          </article>
+
+          <article class="card post-card">
+            <div class="post-header">
+              <img
+                src="https://via.placeholder.com/48"
+                alt="User"
+                class="post-avatar"
+              />
+              <div class="post-meta">
+                <h4 class="post-author">Michael Chen</h4>
+                <p class="post-info">Product Manager at InnovateTech • 1st</p>
+                <p class="post-time">5h • 🌐</p>
+              </div>
+              <button class="post-more">⋯</button>
+            </div>
+            <div class="post-content">
+              <p>
+                Just wrapped up an amazing product launch! Our team worked
+                tirelessly to bring this vision to life. Huge thanks to everyone
+                involved! 🙏
+              </p>
+              <p>
+                Key learnings: User feedback is gold, iterate quickly, and never
+                underestimate the power of a motivated team.
+              </p>
+            </div>
+            <img
+              src="https://via.placeholder.com/552x310/4a90e2/ffffff?text=Product+Launch"
+              alt="Product"
+              class="post-image"
+            />
+            <div class="post-stats">
+              <span class="post-reactions">Michael and 567 others</span>
+              <span class="post-comments">89 comments • 23 reposts</span>
+            </div>
+            <div class="post-actions">
+              <button class="post-action">
+                <svg width="20" height="20" fill="rgba(0,0,0,0.6)">
+                  <path d="M10 3l2 6h6l-5 4 2 6-5-4-5 4 2-6-5-4h6z" />
+                </svg>
+                <span>Like</span>
+              </button>
+              <button class="post-action">
+                <svg width="20" height="20" fill="rgba(0,0,0,0.6)">
+                  <path d="M7 9h10v10H7z" />
+                </svg>
+                <span>Comment</span>
+              </button>
+              <button class="post-action">
+                <svg width="20" height="20" fill="rgba(0,0,0,0.6)">
+                  <path d="M5 5h14v14H5z" />
+                </svg>
+                <span>Repost</span>
+              </button>
+              <button class="post-action">
+                <svg width="20" height="20" fill="rgba(0,0,0,0.6)">
+                  <path d="M3 12l9-9 9 9" />
+                </svg>
+                <span>Send</span>
+              </button>
+            </div>
+          </article>
         </main>
-        
+
+        <!-- Right Sidebar -->
         <aside class="sidebar-right">
-            <div class="card">
-                <h3>Test Stats</h3>
-                <p id="detectionStatus">Checking automation...</p>
-                <p id="userAgent"></p>
+          <div class="card">
+            <div class="card-header">
+              <h3>LinkedIn News</h3>
+              <svg width="16" height="16" fill="rgba(0,0,0,0.6)">
+                <circle cx="8" cy="8" r="1.5" />
+              </svg>
             </div>
+            <ul class="news-list">
+              <li class="news-item">
+                <h4>AI transformation accelerates</h4>
+                <p class="news-meta">Top news • 12,543 readers</p>
+              </li>
+              <li class="news-item">
+                <h4>Tech layoffs continue</h4>
+                <p class="news-meta">3 hours ago • 8,234 readers</p>
+              </li>
+              <li class="news-item">
+                <h4>Remote work debate rages on</h4>
+                <p class="news-meta">5 hours ago • 15,678 readers</p>
+              </li>
+              <li class="news-item">
+                <h4>Startup funding rebounds</h4>
+                <p class="news-meta">1 day ago • 6,892 readers</p>
+              </li>
+            </ul>
+          </div>
+
+          <div class="card ad-card">
+            <p class="ad-label">Promoted</p>
+            <img
+              src="https://via.placeholder.com/300x100/667eea/ffffff?text=Advertisement"
+              alt="Ad"
+              class="ad-image"
+            />
+            <p class="ad-text">Boost your career with LinkedIn Learning</p>
+          </div>
         </aside>
+      </div>
     </div>
-    
+
     <script>
-        // Display automation detection results
-        const detectionStatus = document.getElementById('detectionStatus');
-        const userAgentEl = document.getElementById('userAgent');
-        
-        if (navigator.webdriver) {
-            detectionStatus.innerHTML = '⚠️ Automation Detected<br><small>(navigator.webdriver = true)</small>';
-            detectionStatus.style.color = '#d32f2f';
+      // Automation detection
+      setTimeout(() => {
+        const detectionStatus = document.getElementById("detectionStatus");
+        const webdriverValue = document.getElementById("webdriverValue");
+        const userAgentEl = document.getElementById("userAgent");
+
+        const isAutomation = navigator.webdriver === true;
+
+        if (isAutomation) {
+          detectionStatus.innerHTML =
+            '<svg width="24" height="24" fill="#d32f2f"><circle cx="12" cy="12" r="10"/><path d="M8 8l8 8M16 8l-8 8" stroke="#fff" stroke-width="2"/></svg><span style="color: #d32f2f; font-weight: 600;">⚠️ Automation Detected</span>';
+          webdriverValue.innerHTML =
+            '<span style="color: #d32f2f; font-weight: 600;">true (detected)</span>';
         } else {
-            detectionStatus.innerHTML = '✓ Stealth Mode Active<br><small>(navigator.webdriver removed)</small>';
-            detectionStatus.style.color = '#388e3c';
+          detectionStatus.innerHTML =
+            '<svg width="24" height="24" fill="#388e3c"><circle cx="12" cy="12" r="10"/><path d="M7 12l3 3 7-7" stroke="#fff" stroke-width="2" fill="none"/></svg><span style="color: #388e3c; font-weight: 600;">✓ Stealth Mode Active</span>';
+          webdriverValue.innerHTML =
+            '<span style="color: #388e3c; font-weight: 600;">undefined (hidden)</span>';
         }
-        
-        userAgentEl.innerHTML = '<small>' + navigator.userAgent + '</small>';
-        
-        console.log('Feed page loaded successfully');
-        console.log('Automation detected:', navigator.webdriver);
+
+        userAgentEl.textContent = navigator.userAgent;
+      }, 1000);
+
+      console.log("Feed page loaded successfully");
+      console.log("navigator.webdriver:", navigator.webdriver);
+      console.log("User Agent:", navigator.userAgent);
     </script>
-</body>
+  </body>
 </html>

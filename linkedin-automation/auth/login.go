@@ -105,7 +105,10 @@ func (lm *LoginManager) Login(page *rod.Page) error {
 
 	// Wait for navigation
 	stealth.RandomDelay(3000, 5000)
-	page.MustWaitLoad()
+	// Gracefully wait for page load
+	if err := page.Timeout(10 * time.Second).WaitLoad(); err != nil {
+		lm.log.Warn("Page load timeout after login, continuing anyway...")
+	}
 
 	// Check for security checkpoint
 	if lm.hasSecurityCheckpoint(page) {

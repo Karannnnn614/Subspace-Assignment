@@ -125,7 +125,10 @@ func (sm *SessionManager) RestoreSession(page *rod.Page) error {
 		return fmt.Errorf("failed to navigate: %w", err)
 	}
 
-	page.MustWaitLoad()
+	// Wait for page load with timeout
+	if err := page.Timeout(10 * time.Second).WaitLoad(); err != nil {
+		sm.log.Warn("Page load timeout during session restore, continuing...")
+	}
 
 	sm.log.Success("Session restored", map[string]interface{}{
 		"cookies": len(session.Cookies),

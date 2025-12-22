@@ -1,42 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MockedIn - Test LinkedIn Clone</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container">
-        <div class="login-box">
-            <div class="logo">
-                <h1>MockedIn</h1>
-                <p class="subtitle">Test Automation Safely</p>
-            </div>
-            
-            <form id="loginForm" class="login-form">
-                <div class="form-group">
-                    <label for="session_key">Email or Phone</label>
-                    <input type="text" id="session_key" name="session_key" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="session_password">Password</label>
-                    <input type="password" id="session_password" name="session_password" required>
-                </div>
-                
-                <button type="submit" class="btn-primary">Sign in</button>
-            </form>
-            
-            <div id="message" class="message"></div>
-            
-            <p class="disclaimer">
-                ⚠️ This is a test page for automation testing only.<br>
-                No real authentication happens here.
-            </p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LinkedIn: Log In or Sign Up</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="login-page">
+    <!-- Navigation -->
+    <nav class="login-nav">
+      <div class="nav-content">
+        <div class="logo-section">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="34"
+            height="34"
+            viewBox="0 0 34 34"
+            class="linkedin-logo"
+          >
+            <g>
+              <path
+                d="M34,2.5v29A2.5,2.5,0,0,1,31.5,34H2.5A2.5,2.5,0,0,1,0,31.5V2.5A2.5,2.5,0,0,1,2.5,0h29A2.5,2.5,0,0,1,34,2.5ZM10,13H5V29h5Zm.45-5.5A2.88,2.88,0,0,0,7.59,4.6H7.5a2.9,2.9,0,0,0,0,5.8h0a2.88,2.88,0,0,0,2.95-2.81ZM29,19.28c0-4.81-3.06-6.68-6.1-6.68a5.7,5.7,0,0,0-5.06,2.58H17.7V13H13V29h5V20.49a3.32,3.32,0,0,1,3-3.58h.19c1.59,0,2.77,1,2.77,3.52V29h5Z"
+                fill="#0a66c2"
+              ></path>
+            </g>
+          </svg>
+          <span class="logo-text">LinkedIn</span>
         </div>
+        <div class="nav-actions">
+          <a href="#" class="nav-link">Join now</a>
+          <button class="btn-outline">Sign in</button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="login-container">
+      <div class="login-wrapper">
+        <div class="login-left">
+          <h1 class="welcome-text">Welcome to your professional community</h1>
+          <div class="illustration">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 368">
+              <defs>
+                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop
+                    offset="0%"
+                    style="stop-color: #667eea; stop-opacity: 0.3"
+                  />
+                  <stop
+                    offset="100%"
+                    style="stop-color: #764ba2; stop-opacity: 0.3"
+                  />
+                </linearGradient>
+              </defs>
+              <rect width="700" height="368" fill="url(#grad1)" rx="8" />
+              <text
+                x="50%"
+                y="50%"
+                text-anchor="middle"
+                fill="#0a66c2"
+                font-size="48"
+                font-weight="600"
+                font-family="Source Sans Pro"
+              >
+                Test Environment
+              </text>
+            </svg>
+          </div>
+        </div>
+
+        <div class="login-right">
+          <div class="login-card">
+            <h2 class="signin-title">Sign in</h2>
+            <p class="signin-subtitle">
+              Stay updated on your professional world
+            </p>
+
+            <form id="loginForm" class="signin-form">
+              <div class="form-field">
+                <label for="session_key" class="form-label"
+                  >Email or phone</label
+                >
+                <input
+                  type="text"
+                  id="session_key"
+                  name="session_key"
+                  class="form-input"
+                  required
+                />
+              </div>
+
+              <div class="form-field">
+                <label for="session_password" class="form-label"
+                  >Password</label
+                >
+                <input
+                  type="password"
+                  id="session_password"
+                  name="session_password"
+                  class="form-input"
+                  required
+                />
+              </div>
+
+              <a href="#" class="forgot-password">Forgot password?</a>
+
+              <button type="submit" class="btn-signin">Sign in</button>
+
+              <div id="message" class="message"></div>
+            </form>
+
+            <div class="divider">
+              <span>or</span>
+            </div>
+
+            <p class="new-to-linkedin">
+              New to LinkedIn? <a href="#" class="join-link">Join now</a>
+            </p>
+
+            <div class="test-notice">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="#f5a623">
+                <path
+                  d="M8 1a7 7 0 110 14A7 7 0 018 1zm0 9.5a.75.75 0 100 1.5.75.75 0 000-1.5zm0-7a.5.5 0 00-.5.5v5a.5.5 0 001 0V4a.5.5 0 00-.5-.5z"
+                />
+              </svg>
+              <span>Test Environment - Any credentials accepted</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    
+
+    <!-- Footer -->
+    <footer class="login-footer">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="56"
+            height="14"
+            viewBox="0 0 56 14"
+            class="footer-linkedin-logo"
+          >
+            <g>
+              <path
+                d="M22.1 8.2l3.09 3.8h-2.44L20 8.51V12h-2V2h2v5.88L22.54 5h2.55zm-8-3.4A2.71 2.71 0 0011.89 6V5H10v7h2V8.73a1.74 1.74 0 011.66-1.93h.08a1.65 1.65 0 011.55 1.88V12h2V8.29a3.58 3.58 0 00-3.18-3.49zM32 8.66a4.22 4.22 0 010 .44h-5.25v.07a1.79 1.79 0 001.83 1.43 2.51 2.51 0 001.84-.69l1.33 1a4.31 4.31 0 01-3.25 1.29 3.49 3.49 0 01-3.7-3.75 3.58 3.58 0 013.76-3.65A3.47 3.47 0 0132 8.66zm-5.27-.66h3.25a1.52 1.52 0 00-1.58-1.46A1.64 1.64 0 0026.73 8zM0 2h2v10H0zm36-.35a1.59 1.59 0 00-1.16.47 11 11 0 00-3.26 6.09L30.44 12h-1.85L30 2.2a13.33 13.33 0 013.48-6.93A3.12 3.12 0 0135.73-6h.54l-.24 1.69A1.42 1.42 0 0036-.35zM6.24 5H8v7H6V8.73a1.74 1.74 0 00-1.66-1.93h-.08A1.65 1.65 0 002.71 8.68V12h-2V5h2v1A2.71 2.71 0 015 4.8h.24z"
+                fill="#666666"
+              ></path>
+            </g>
+          </svg>
+        </div>
+        <nav class="footer-nav">
+          <a href="#">About</a>
+          <a href="#">Accessibility</a>
+          <a href="#">User Agreement</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Cookie Policy</a>
+          <a href="#">Copyright Policy</a>
+          <a href="#">Brand Policy</a>
+          <a href="#">Guest Controls</a>
+          <a href="#">Community Guidelines</a>
+        </nav>
+        <div class="footer-copyright">
+          LinkedIn Corporation © 2025 (Test Environment)
+        </div>
+      </div>
+    </footer>
+
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
