@@ -142,10 +142,11 @@ func ScrollToElement(page *rod.Page, element *rod.Element, log *logger.Logger) e
 	}
 
 	// Get element position
-	box, err := element.Box()
+	shape, err := element.Shape()
 	if err != nil {
-		return fmt.Errorf("failed to get element box: %w", err)
+		return fmt.Errorf("failed to get element shape: %w", err)
 	}
+	box := shape.Box()
 
 	// Calculate target scroll position (center element in viewport)
 	viewportHeight := page.MustEval(`window.innerHeight`).Int()

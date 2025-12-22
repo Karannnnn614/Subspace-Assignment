@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"linkedin-automation/config"
 	"linkedin-automation/logger"
+	"linkedin-automation/models"
 	"linkedin-automation/stealth"
 	"linkedin-automation/storage"
 	"net/url"
@@ -12,18 +13,6 @@ import (
 
 	"github.com/go-rod/rod"
 )
-
-// Profile represents a LinkedIn profile
-type Profile struct {
-	Name        string
-	Headline    string
-	ProfileURL  string
-	Company     string
-	Location    string
-	ConnectionDegree string
-	SearchKeyword    string
-	DiscoveredAt     time.Time
-}
 
 // PeopleSearcher handles LinkedIn people search
 type PeopleSearcher struct {
@@ -42,7 +31,7 @@ func NewPeopleSearcher(cfg *config.Config, log *logger.Logger, db *storage.DB) *
 }
 
 // Search performs a people search and returns found profiles
-func (ps *PeopleSearcher) Search(page *rod.Page, keyword string) ([]*Profile, error) {
+func (ps *PeopleSearcher) Search(page *rod.Page, keyword string) ([]*models.Profile, error) {
 	ps.log.Info(fmt.Sprintf("Searching for: %s", keyword))
 
 	// Build search URL
@@ -59,7 +48,7 @@ func (ps *PeopleSearcher) Search(page *rod.Page, keyword string) ([]*Profile, er
 	page.MustWaitLoad()
 
 	// Collect profiles from multiple pages
-	var allProfiles []*Profile
+	var allProfiles []*models.Profile
 
 	for pageNum := 1; pageNum <= ps.config.Search.MaxSearchPages; pageNum++ {
 		ps.log.Info(fmt.Sprintf("Scraping page %d/%d", pageNum, ps.config.Search.MaxSearchPages))
@@ -112,8 +101,8 @@ func (ps *PeopleSearcher) buildSearchURL(keyword string) string {
 }
 
 // extractProfiles extracts profile data from search results page
-func (ps *PeopleSearcher) extractProfiles(page *rod.Page, keyword string) ([]*Profile, error) {
-	var profiles []*Profile
+func (ps *PeopleSearcher) extractProfiles(page *rod.Page, keyword string) ([]*models.Profile, error) {
+	var profiles []*models.Profile
 
 	// Wait for search results container
 	resultsContainer, err := page.Timeout(10 * time.Second).Element(".search-results-container")
@@ -150,8 +139,8 @@ func (ps *PeopleSearcher) extractProfiles(page *rod.Page, keyword string) ([]*Pr
 }
 
 // extractProfileFromCard extracts profile data from a single card element
-func (ps *PeopleSearcher) extractProfileFromCard(card *rod.Element, keyword string) (*Profile, error) {
-	profile := &Profile{
+func (ps *PeopleSearcher) extractProfileFromCard(card *rod.Element, keyword string) (*models.Profile, error) {
+	profile := &models.Profile{
 		SearchKeyword: keyword,
 		DiscoveredAt:  time.Now(),
 	}
@@ -190,7 +179,7 @@ func (ps *PeopleSearcher) extractProfileFromCard(card *rod.Element, keyword stri
 }
 
 // isDuplicate checks if profile already exists in the list
-func (ps *PeopleSearcher) isDuplicate(profiles []*Profile, newProfile *Profile) bool {
+func (ps *PeopleSearcher) isDuplicate(profiles []*models.Profile, newProfile *models.Profile) bool {
 	for _, p := range profiles {
 		if p.ProfileURL == newProfile.ProfileURL {
 			return true
@@ -235,8 +224,8 @@ func (ps *PeopleSearcher) goToNextPage(page *rod.Page, currentPage int) error {
 }
 
 // SearchMultipleKeywords searches for multiple keywords
-func (ps *PeopleSearcher) SearchMultipleKeywords(page *rod.Page) ([]*Profile, error) {
-	var allProfiles []*Profile
+func (ps *PeopleSearcher) SearchMultipleKeywords(page *rod.Page) ([]*models.Profile, error) {
+	var allProfiles []*models.Profile
 
 	for i, keyword := range ps.config.Search.Keywords {
 		ps.log.Info(fmt.Sprintf("Searching keyword %d/%d: %s", i+1, len(ps.config.Search.Keywords), keyword))

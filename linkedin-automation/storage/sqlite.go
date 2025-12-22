@@ -3,7 +3,7 @@ package storage
 import (
 	"database/sql"
 	"fmt"
-	"linkedin-automation/search"
+	"linkedin-automation/models"
 	"time"
 
 	_ "github.com/mattn/go-sqlite3"
@@ -94,7 +94,7 @@ func (db *DB) createTables() error {
 }
 
 // SaveProfile saves or updates a profile
-func (db *DB) SaveProfile(profile *search.Profile) error {
+func (db *DB) SaveProfile(profile *models.Profile) error {
 	query := `
 	INSERT INTO profiles (name, profile_url, headline, company, location, connection_degree, search_keyword, discovered_at)
 	VALUES (?, ?, ?, ?, ?, ?, ?, ?)
@@ -121,7 +121,7 @@ func (db *DB) SaveProfile(profile *search.Profile) error {
 }
 
 // GetUncontactedProfiles retrieves profiles that haven't been contacted yet
-func (db *DB) GetUncontactedProfiles(limit int) ([]*search.Profile, error) {
+func (db *DB) GetUncontactedProfiles(limit int) ([]*models.Profile, error) {
 	query := `
 	SELECT name, profile_url, headline, company, location, connection_degree, search_keyword, discovered_at
 	FROM profiles
@@ -140,7 +140,7 @@ func (db *DB) GetUncontactedProfiles(limit int) ([]*search.Profile, error) {
 }
 
 // GetProfilesNeedingMessage retrieves profiles that need follow-up messages
-func (db *DB) GetProfilesNeedingMessage(limit int) ([]*search.Profile, error) {
+func (db *DB) GetProfilesNeedingMessage(limit int) ([]*models.Profile, error) {
 	query := `
 	SELECT name, profile_url, headline, company, location, connection_degree, search_keyword, discovered_at
 	FROM profiles
@@ -303,11 +303,11 @@ func (db *DB) Close() error {
 }
 
 // scanProfiles scans rows into Profile structs
-func (db *DB) scanProfiles(rows *sql.Rows) ([]*search.Profile, error) {
-	var profiles []*search.Profile
+func (db *DB) scanProfiles(rows *sql.Rows) ([]*models.Profile, error) {
+	var profiles []*models.Profile
 
 	for rows.Next() {
-		var p search.Profile
+		var p models.Profile
 		var discoveredAt sql.NullTime
 
 		err := rows.Scan(

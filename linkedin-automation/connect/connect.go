@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"linkedin-automation/config"
 	"linkedin-automation/logger"
+	"linkedin-automation/models"
 	"linkedin-automation/search"
 	"linkedin-automation/stealth"
 	"linkedin-automation/storage"
@@ -92,7 +93,7 @@ func (c *Connector) SendConnectionRequests(page *rod.Page) error {
 }
 
 // sendConnectionRequest sends a single connection request
-func (c *Connector) sendConnectionRequest(page *rod.Page, profile *search.Profile) error {
+func (c *Connector) sendConnectionRequest(page *rod.Page, profile *models.Profile) error {
 	// Navigate to profile
 	if err := page.Navigate(profile.ProfileURL); err != nil {
 		return fmt.Errorf("failed to navigate to profile: %w", err)
@@ -201,7 +202,7 @@ func (c *Connector) findSendButton(page *rod.Page) (*rod.Element, error) {
 }
 
 // generateMessage creates a personalized connection message
-func (c *Connector) generateMessage(profile *search.Profile) string {
+func (c *Connector) generateMessage(profile *models.Profile) string {
 	template := c.config.Messaging.MessageTemplate
 	
 	// Extract first name

@@ -5,6 +5,7 @@ import (
 	"linkedin-automation/config"
 	"linkedin-automation/connect"
 	"linkedin-automation/logger"
+	"linkedin-automation/models"
 	"linkedin-automation/search"
 	"linkedin-automation/stealth"
 	"linkedin-automation/storage"
@@ -101,7 +102,7 @@ func (m *Messenger) SendMessages(page *rod.Page) error {
 }
 
 // sendMessage sends a single message to a profile
-func (m *Messenger) sendMessage(page *rod.Page, profile *search.Profile) error {
+func (m *Messenger) sendMessage(page *rod.Page, profile *models.Profile) error {
 	// Search for conversation
 	searchBox, err := page.Timeout(10 * time.Second).Element("input[placeholder*='Search messages']")
 	if err != nil {
@@ -167,7 +168,7 @@ func (m *Messenger) sendMessage(page *rod.Page, profile *search.Profile) error {
 }
 
 // SendDirectMessage sends a message directly from profile page
-func (m *Messenger) SendDirectMessage(page *rod.Page, profile *search.Profile, message string) error {
+func (m *Messenger) SendDirectMessage(page *rod.Page, profile *models.Profile, message string) error {
 	// Navigate to profile
 	if err := page.Navigate(profile.ProfileURL); err != nil {
 		return fmt.Errorf("failed to navigate: %w", err)

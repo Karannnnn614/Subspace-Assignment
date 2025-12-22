@@ -24,10 +24,11 @@ func HumanMouseMove(page *rod.Page, element *rod.Element, log *logger.Logger) er
 	}
 
 	// Get element center position
-	box, err := element.Box()
+	shape, err := element.Shape()
 	if err != nil {
-		return fmt.Errorf("failed to get element box: %w", err)
+		return fmt.Errorf("failed to get element shape: %w", err)
 	}
+	box := shape.Box()
 
 	targetX := box.X + box.Width/2
 	targetY := box.Y + box.Height/2
@@ -47,7 +48,7 @@ func HumanMouseMove(page *rod.Page, element *rod.Element, log *logger.Logger) er
 	// Move mouse along curve with variable speed
 	for i, point := range points {
 		// Move mouse to point
-		page.Mouse.Move(point.X, point.Y, 1)
+		page.Mouse.MustMoveTo(point.X, point.Y)
 
 		// Variable delay - slower at start/end, faster in middle
 		delay := calculateMouseDelay(i, len(points))
@@ -57,11 +58,11 @@ func HumanMouseMove(page *rod.Page, element *rod.Element, log *logger.Logger) er
 	// Small overshoot and correction for realism
 	overshootX := targetX + float64(rand.Intn(5)-2)
 	overshootY := targetY + float64(rand.Intn(5)-2)
-	page.Mouse.Move(overshootX, overshootY, 1)
+	page.Mouse.MustMoveTo(overshootX, overshootY)
 	time.Sleep(50 * time.Millisecond)
 
 	// Correct back to target
-	page.Mouse.Move(targetX, targetY, 1)
+	page.Mouse.MustMoveTo(targetX, targetY)
 	time.Sleep(30 * time.Millisecond)
 
 	log.Stealth("Human mouse movement", map[string]interface{}{
@@ -164,7 +165,7 @@ func IdleMouseMovement(page *rod.Page, log *logger.Logger) {
 	for i := 0; i < steps; i++ {
 		dx := float64(rand.Intn(50) - 25)
 		dy := float64(rand.Intn(50) - 25)
-		page.Mouse.Move(x+dx, y+dy, 1)
+		page.Mouse.MustMoveTo(x+dx, y+dy)
 		time.Sleep(time.Duration(rand.Intn(200)+100) * time.Millisecond)
 	}
 

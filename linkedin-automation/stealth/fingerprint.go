@@ -33,7 +33,7 @@ func ApplyFingerprint(page *rod.Page, log *logger.Logger) error {
 		});
 	`, config.UserAgent)
 	
-	if err := page.Eval(script); err != nil {
+	if _, err := page.Eval(script); err != nil {
 		log.Warn("Failed to set user agent fingerprint")
 	}
 
@@ -44,7 +44,7 @@ func ApplyFingerprint(page *rod.Page, log *logger.Logger) error {
 		});
 	`, config.Platform)
 	
-	if err := page.Eval(script); err != nil {
+	if _, err := page.Eval(script); err != nil {
 		log.Warn("Failed to set platform fingerprint")
 	}
 
@@ -55,7 +55,7 @@ func ApplyFingerprint(page *rod.Page, log *logger.Logger) error {
 		});
 	`, config.Vendor)
 	
-	if err := page.Eval(script); err != nil {
+	if _, err := page.Eval(script); err != nil {
 		log.Warn("Failed to set vendor fingerprint")
 	}
 
@@ -66,7 +66,7 @@ func ApplyFingerprint(page *rod.Page, log *logger.Logger) error {
 		});
 	`, config.HardwareConcurrency)
 	
-	if err := page.Eval(script); err != nil {
+	if _, err := page.Eval(script); err != nil {
 		log.Warn("Failed to set hardware concurrency")
 	}
 
@@ -83,7 +83,7 @@ func ApplyFingerprint(page *rod.Page, log *logger.Logger) error {
 		});
 	`, config.ScreenWidth, config.ScreenHeight, config.ColorDepth)
 	
-	if err := page.Eval(script); err != nil {
+	if _, err := page.Eval(script); err != nil {
 		log.Warn("Failed to set screen properties")
 	}
 
@@ -130,7 +130,7 @@ func ApplyFingerprint(page *rod.Page, log *logger.Logger) error {
 		}
 	`
 	
-	if err := page.Eval(antiDetectionScripts); err != nil {
+	if _, err := page.Eval(antiDetectionScripts); err != nil {
 		log.Warn("Failed to apply anti-detection scripts")
 	}
 

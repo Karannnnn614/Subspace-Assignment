@@ -2,6 +2,7 @@ package messaging
 
 import (
 	"linkedin-automation/config"
+	"linkedin-automation/models"
 	"linkedin-automation/search"
 	"strings"
 )
@@ -21,7 +22,7 @@ func NewTemplateManager(cfg *config.Config) *TemplateManager {
 }
 
 // GenerateMessage generates a personalized message from template
-func (tm *TemplateManager) GenerateMessage(templateName string, profile *search.Profile) string {
+func (tm *TemplateManager) GenerateMessage(templateName string, profile *models.Profile) string {
 	// Get template
 	template := tm.getTemplate(templateName)
 

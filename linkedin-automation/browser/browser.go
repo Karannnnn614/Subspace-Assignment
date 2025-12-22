@@ -59,14 +59,23 @@ func (bm *BrowserManager) Launch() (*rod.Page, func(), error) {
 		browser = browser.Timeout(time.Duration(bm.config.Browser.Timeout) * time.Second)
 	}
 
-	// Create new page
-	page, err := browser.Page(proto.TargetCreateTarget{})
-	if err != nil {
-		browser.MustClose()
-		return nil, nil, fmt.Errorf("failed to create page: %w", err)
+	// Create new page with stealth
+	var page *rod.Page
+	var err error
+	
+	if bm.config.Stealth.Enabled {
+		// Use stealth page creation
+		page = rodstealth.MustPage(browser)
+	} else {
+		// Regular page creation
+		page, err = browser.Page(proto.TargetCreateTarget{})
+		if err != nil {
+			browser.MustClose()
+			return nil, nil, fmt.Errorf("failed to create page: %w", err)
+		}
 	}
 
-	// Apply stealth techniques
+	// Apply additional stealth techniques
 	if bm.config.Stealth.Enabled {
 		if err := bm.applyStealth(page); err != nil {
 			page.MustClose()
@@ -90,11 +99,6 @@ func (bm *BrowserManager) Launch() (*rod.Page, func(), error) {
 
 // applyStealth applies anti-detection techniques to the browser
 func (bm *BrowserManager) applyStealth(page *rod.Page) error {
-	// Apply rod/stealth library
-	if err := rodstealth.Apply(page); err != nil {
-		return fmt.Errorf("failed to apply rod stealth: %w", err)
-	}
-
 	// Set custom user agent
 	if bm.config.Stealth.CustomUserAgent != "" {
 		if err := page.SetUserAgent(&proto.NetworkSetUserAgentOverride{
@@ -152,7 +156,7 @@ func (bm *BrowserManager) injectAntiDetectionScripts(page *rod.Page) error {
 	}
 
 	for _, script := range scripts {
-		if err := page.Eval(script); err != nil {
+		if _, err := page.Eval(script); err != nil {
 			bm.log.Warn(fmt.Sprintf("Failed to inject script: %v", err))
 		}
 	}
@@ -202,10 +206,11 @@ func ScrollToElement(page *rod.Page, element *rod.Element, log *logger.Logger) e
 	}
 
 	// Get element position
-	box, err := element.Box()
+	shape, err := element.Shape()
 	if err != nil {
-		return fmt.Errorf("failed to get element box: %w", err)
+		return fmt.Errorf("failed to get element shape: %w", err)
 	}
+	box := shape.Box()
 
 	// Scroll with human-like behavior
 	stealth.HumanScroll(page, int(box.Y), log)
