@@ -48,7 +48,11 @@ func (lm *LoginManager) Login(page *rod.Page) error {
 
 	// Wait for page load with random delay
 	stealth.RandomDelay(2000, 4000)
-	page.MustWaitLoad()
+	
+	// Wait for page load with timeout
+	if err := page.Timeout(15 * time.Second).WaitLoad(); err != nil {
+		lm.log.Warn("Page load timeout, continuing anyway...")
+	}
 
 	// Check if already logged in
 	if lm.isLoggedIn(page) {

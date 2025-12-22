@@ -38,6 +38,7 @@ func (bm *BrowserManager) Launch() (*rod.Page, func(), error) {
 	// Initialize launcher
 	l := launcher.New().
 		Headless(bm.config.Browser.Headless).
+		Leakless(false).
 		Devtools(false)
 
 	// Set user data directory for session persistence

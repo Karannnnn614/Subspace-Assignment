@@ -118,6 +118,9 @@ func applyEnvOverrides(cfg *Config) {
 	if password := os.Getenv("LINKEDIN_PASSWORD"); password != "" {
 		cfg.LinkedIn.Password = password
 	}
+	if baseURL := os.Getenv("LINKEDIN_BASE_URL"); baseURL != "" {
+		cfg.LinkedIn.BaseURL = baseURL
+	}
 	if dbPath := os.Getenv("DATABASE_PATH"); dbPath != "" {
 		cfg.Database.Path = dbPath
 	}

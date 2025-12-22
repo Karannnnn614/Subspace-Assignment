@@ -27,16 +27,20 @@ func HumanType(element *rod.Element, text string, log *logger.Logger) error {
 		if rand.Float64() < 0.05 && i < len(text)-1 {
 			// Type wrong character
 			wrongChar := getRandomChar()
-			element.MustInput(string(wrongChar))
+			if err := element.Input(string(wrongChar)); err != nil {
+				log.Warn("Failed to type typo character")
+			}
 			time.Sleep(time.Duration(rand.Intn(100)+50) * time.Millisecond)
 
 			// Backspace
-			element.MustType(input.Backspace)
+			element.Type(input.Backspace)
 			time.Sleep(time.Duration(rand.Intn(150)+100) * time.Millisecond)
 		}
 
 		// Type correct character
-		element.MustInput(string(char))
+		if err := element.Input(string(char)); err != nil {
+			log.Warn("Failed to type character, continuing...")
+		}
 
 		// Variable keystroke delay
 		delay := calculateKeystrokeDelay()
