@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feed - MockedIn</title>
+    <link rel="stylesheet" href="feed-style.css">
+</head>
+<body>
+    <nav class="global-nav">
+        <div class="nav-container">
+            <div class="nav-left">
+                <h1 class="logo">MockedIn</h1>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search">
+                </div>
+            </div>
+            <div class="nav-right">
+                <img src="https://via.placeholder.com/32" alt="Profile" class="global-nav__me-photo">
+            </div>
+        </div>
+    </nav>
+    
+    <div class="main-container">
+        <aside class="sidebar">
+            <div class="card">
+                <h3>Profile</h3>
+                <p>Test User</p>
+                <p class="subtitle">Automation Tester</p>
+            </div>
+        </aside>
+        
+        <main class="feed">
+            <div class="card">
+                <h2>✅ Login Successful!</h2>
+                <p>You have successfully logged in to the test site.</p>
+                <p class="success-message">
+                    Your automation bot can now test:<br>
+                    • Navigation detection<br>
+                    • Element interaction<br>
+                    • Session persistence<br>
+                </p>
+            </div>
+            
+            <div class="card post">
+                <div class="post-header">
+                    <img src="https://via.placeholder.com/48" alt="User">
+                    <div>
+                        <h4>John Doe</h4>
+                        <p class="subtitle">Software Engineer at Test Corp</p>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <p>This is a sample post to test scrolling and content reading behavior.</p>
+                </div>
+            </div>
+            
+            <div class="card post">
+                <div class="post-header">
+                    <img src="https://via.placeholder.com/48" alt="User">
+                    <div>
+                        <h4>Jane Smith</h4>
+                        <p class="subtitle">Product Manager at Innovation Inc</p>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <p>Another test post for automation testing. Your bot should be able to scroll and read this content.</p>
+                </div>
+            </div>
+        </main>
+        
+        <aside class="sidebar-right">
+            <div class="card">
+                <h3>Test Stats</h3>
+                <p id="detectionStatus">Checking automation...</p>
+                <p id="userAgent"></p>
+            </div>
+        </aside>
+    </div>
+    
+    <script>
+        // Display automation detection results
+        const detectionStatus = document.getElementById('detectionStatus');
+        const userAgentEl = document.getElementById('userAgent');
+        
+        if (navigator.webdriver) {
+            detectionStatus.innerHTML = '⚠️ Automation Detected<br><small>(navigator.webdriver = true)</small>';
+            detectionStatus.style.color = '#d32f2f';
+        } else {
+            detectionStatus.innerHTML = '✓ Stealth Mode Active<br><small>(navigator.webdriver removed)</small>';
+            detectionStatus.style.color = '#388e3c';
+        }
+        
+        userAgentEl.innerHTML = '<small>' + navigator.userAgent + '</small>';
+        
+        console.log('Feed page loaded successfully');
+        console.log('Automation detected:', navigator.webdriver);
+    </script>
+</body>
+</html>

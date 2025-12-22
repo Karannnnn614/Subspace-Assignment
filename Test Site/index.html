@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MockedIn - Test LinkedIn Clone</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="login-box">
+            <div class="logo">
+                <h1>MockedIn</h1>
+                <p class="subtitle">Test Automation Safely</p>
+            </div>
+            
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="session_key">Email or Phone</label>
+                    <input type="text" id="session_key" name="session_key" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="session_password">Password</label>
+                    <input type="password" id="session_password" name="session_password" required>
+                </div>
+                
+                <button type="submit" class="btn-primary">Sign in</button>
+            </form>
+            
+            <div id="message" class="message"></div>
+            
+            <p class="disclaimer">
+                ⚠️ This is a test page for automation testing only.<br>
+                No real authentication happens here.
+            </p>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
