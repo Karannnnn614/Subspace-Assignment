@@ -70,14 +70,14 @@ func (sm *SessionManager) SaveSession(page *rod.Page) error {
 	}
 
 	// Get user agent
-	userAgent, err := page.Eval(`() => navigator.userAgent`)
+	userAgentResult, err := page.Eval(`() => navigator.userAgent`)
 	if err != nil {
 		return fmt.Errorf("failed to get user agent: %w", err)
 	}
 
 	session := Session{
 		Cookies:   cookies,
-		UserAgent: userAgent.Value.String(),
+		UserAgent: userAgentResult.Value.Str(),
 		Timestamp: time.Now(),
 	}
 
@@ -102,7 +102,21 @@ func (sm *SessionManager) RestoreSession(page *rod.Page) error {
 	}
 
 	// Set cookies
-	if err := page.SetCookies(session.Cookies); err != nil {
+	cookieParams := make([]*proto.NetworkCookieParam, len(session.Cookies))
+	for i, cookie := range session.Cookies {
+		cookieParams[i] = &proto.NetworkCookieParam{
+			Name:     cookie.Name,
+			Value:    cookie.Value,
+			Domain:   cookie.Domain,
+			Path:     cookie.Path,
+			Secure:   cookie.Secure,
+			HTTPOnly: cookie.HTTPOnly,
+			SameSite: cookie.SameSite,
+			Expires:  cookie.Expires,
+		}
+	}
+	
+	if err := page.SetCookies(cookieParams); err != nil {
 		return fmt.Errorf("failed to set cookies: %w", err)
 	}
 

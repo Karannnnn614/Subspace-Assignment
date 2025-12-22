@@ -97,9 +97,7 @@ func (lm *LoginManager) Login(page *rod.Page) error {
 	stealth.RandomDelay(300, 800)
 
 	// Click sign-in button
-	if err := signInBtn.Click(proto.InputMouseButtonLeft, 1); err != nil {
-		return fmt.Errorf("failed to click sign-in button: %w", err)
-	}
+	signInBtn.MustClick()
 
 	// Wait for navigation
 	stealth.RandomDelay(3000, 5000)

@@ -61,17 +61,17 @@ func (bm *BrowserManager) Launch() (*rod.Page, func(), error) {
 
 	// Create new page with stealth
 	var page *rod.Page
-	var err error
 	
 	if bm.config.Stealth.Enabled {
 		// Use stealth page creation
 		page = rodstealth.MustPage(browser)
 	} else {
 		// Regular page creation
-		page, err = browser.Page(proto.TargetCreateTarget{})
-		if err != nil {
+		var pageErr error
+		page, pageErr = browser.Page(proto.TargetCreateTarget{})
+		if pageErr != nil {
 			browser.MustClose()
-			return nil, nil, fmt.Errorf("failed to create page: %w", err)
+			return nil, nil, fmt.Errorf("failed to create page: %w", pageErr)
 		}
 	}
 
