@@ -51,13 +51,13 @@ Modern web platforms employ increasingly sophisticated anti-automation measures.
 
 ### Key Technologies
 
-| Technology | Purpose | Why Chosen |
-|------------|---------|------------|
-| **Go 1.21+** | Core language | Performance, concurrency, type safety |
+| Technology      | Purpose            | Why Chosen                                |
+| --------------- | ------------------ | ----------------------------------------- |
+| **Go 1.21+**    | Core language      | Performance, concurrency, type safety     |
 | **Rod Library** | Browser automation | Native CDP protocol, better than Selenium |
-| **SQLite** | Data persistence | Lightweight, embedded, no server needed |
-| **Chromium** | Browser engine | Industry standard, full DevTools Protocol |
-| **HTML/CSS/JS** | Test environment | Pixel-perfect LinkedIn replica |
+| **SQLite**      | Data persistence   | Lightweight, embedded, no server needed   |
+| **Chromium**    | Browser engine     | Industry standard, full DevTools Protocol |
+| **HTML/CSS/JS** | Test environment   | Pixel-perfect LinkedIn replica            |
 
 ---
 
@@ -149,6 +149,7 @@ User Command → Config Load → Browser Launch → Stealth Injection
 - **Graceful failure handling** - Detailed error messages for debugging
 
 **Implementation Highlights**:
+
 ```go
 // Session restoration with automatic fallback
 if sessionMgr.HasValidSession() {
@@ -170,6 +171,7 @@ if sessionMgr.HasValidSession() {
 - **Structured storage** - Normalized SQLite schema
 
 **Query Optimization**:
+
 ```sql
 -- Efficient duplicate check before insertion
 INSERT OR IGNORE INTO profiles (profile_url, ...)
@@ -188,6 +190,7 @@ ON CONFLICT(profile_url) DO NOTHING;
 - **Character limit validation** - LinkedIn's 300 char constraint
 
 **Rate Limiting Algorithm**:
+
 ```go
 // Check daily quota before sending connection
 count := db.GetConnectionsToday()
@@ -207,6 +210,7 @@ if count >= config.Limits.MaxConnectionsPerDay {
 - **Cooldown periods** - Prevents message spam
 
 **Message Template Engine**:
+
 ```go
 message := strings.ReplaceAll(template, "{name}", profile.Name)
 message = strings.ReplaceAll(message, "{company}", profile.Company)
@@ -249,6 +253,7 @@ for t := 0.0; t <= 1.0; t += 0.01 {
 ```
 
 **Detection Evasion**:
+
 - Variable speed (acceleration/deceleration)
 - Natural overshoot (moves slightly past target, then corrects)
 - Micro-corrections (small adjustments before clicking)
@@ -272,13 +277,14 @@ if rand.Float64() < 0.1 {
 ```
 
 **Business Hours Awareness**:
+
 ```go
 func IsBusinessHours() bool {
     hour := time.Now().Hour()
     weekday := time.Now().Weekday()
-    
+
     // 9 AM - 6 PM, Monday-Friday
-    return hour >= 9 && hour < 18 && 
+    return hour >= 9 && hour < 18 &&
            weekday >= time.Monday && weekday <= time.Friday
 }
 ```
@@ -307,6 +313,7 @@ page.MustEval(`
 ```
 
 **Randomized Viewport**:
+
 ```go
 viewports := []string{"1920x1080", "1366x768", "1440x900"}
 selected := viewports[rand.Intn(len(viewports))]
@@ -324,13 +331,13 @@ func HumanScroll(page *rod.Page) error {
     currentY := getCurrentScrollY(page)
     targetY := currentY + rand.Intn(300) + 100
     steps := 20 + rand.Intn(15)
-    
+
     for i := 0; i < steps; i++ {
         progress := float64(i) / float64(steps)
         // Ease-in-out function for natural acceleration
         eased := easeInOutQuad(progress)
         nextY := int(currentY + eased*float64(targetY-currentY))
-        
+
         page.MustEval(fmt.Sprintf("window.scrollTo(0, %d)", nextY))
         time.Sleep(time.Duration(rand.Intn(30)+10) * time.Millisecond)
     }
@@ -350,19 +357,19 @@ for i, char := range text {
         wrongChar := getRandomChar()
         element.Input(string(wrongChar))
         time.Sleep(50-100ms)
-        
+
         // Backspace correction
         element.Type(input.Backspace)
         time.Sleep(100-150ms)
     }
-    
+
     // Type correct character
     element.Input(string(char))
-    
+
     // Variable keystroke delay (50-200ms)
     delay := 50 + rand.Intn(150)
     time.Sleep(time.Duration(delay) * time.Millisecond)
-    
+
     // Occasional "thinking" pause (10% chance)
     if rand.Float64() < 0.1 {
         time.Sleep(300-800ms)
@@ -395,24 +402,24 @@ time.Sleep(200-500ms) // Hover duration
 ```go
 func ShouldOperate() bool {
     now := time.Now()
-    
+
     // Weekend detection
     if now.Weekday() == time.Saturday || now.Weekday() == time.Sunday {
         return false
     }
-    
+
     // Business hours (9 AM - 6 PM)
     hour := now.Hour()
     if hour < 9 || hour >= 18 {
         return false
     }
-    
+
     // Random breaks (5% chance per hour)
     if rand.Float64() < 0.05 {
         log.Info("Taking a break...")
         return false
     }
-    
+
     return true
 }
 ```
@@ -428,7 +435,7 @@ type RateLimiter struct {
     ConnectionsToday int
     MessagesToday    int
     LastActionTime   time.Time
-    
+
     MaxConnectionsPerDay int
     MaxMessagesPerDay    int
     MinActionDelay       time.Duration
@@ -439,37 +446,38 @@ func (rl *RateLimiter) CanPerformAction() bool {
     if rl.ConnectionsToday >= rl.MaxConnectionsPerDay {
         return false
     }
-    
+
     // Enforce minimum delay between actions
     timeSince := time.Since(rl.LastActionTime)
     if timeSince < rl.MinActionDelay {
         return false
     }
-    
+
     return true
 }
 ```
 
 **Database-Backed Tracking**:
+
 ```sql
 -- Query connections sent today
-SELECT COUNT(*) FROM connections 
+SELECT COUNT(*) FROM connections
 WHERE DATE(created_at) = DATE('now')
 AND status = 'sent';
 ```
 
 ### Detection Evasion Results
 
-| Technique | Detection Method Bypassed | Effectiveness |
-|-----------|--------------------------|---------------|
-| Bézier Mouse | Mouse trajectory analysis | 95% |
-| Random Timing | Temporal pattern detection | 90% |
-| Fingerprint Masking | `navigator.webdriver` check | 100% |
-| Natural Scrolling | Scroll event analysis | 85% |
-| Realistic Typing | Keystroke timing analysis | 90% |
-| Mouse Hovering | Interaction pattern analysis | 80% |
-| Activity Scheduling | 24/7 operation detection | 95% |
-| Rate Limiting | Request frequency analysis | 95% |
+| Technique           | Detection Method Bypassed    | Effectiveness |
+| ------------------- | ---------------------------- | ------------- |
+| Bézier Mouse        | Mouse trajectory analysis    | 95%           |
+| Random Timing       | Temporal pattern detection   | 90%           |
+| Fingerprint Masking | `navigator.webdriver` check  | 100%          |
+| Natural Scrolling   | Scroll event analysis        | 85%           |
+| Realistic Typing    | Keystroke timing analysis    | 90%           |
+| Mouse Hovering      | Interaction pattern analysis | 80%           |
+| Activity Scheduling | 24/7 operation detection     | 95%           |
+| Rate Limiting       | Request frequency analysis   | 95%           |
 
 ---
 
@@ -583,6 +591,7 @@ nano .env  # or vim, notepad, etc.
 ```
 
 **Example `.env` configuration**:
+
 ```env
 # For local testing with test site
 LINKEDIN_EMAIL=test@example.com
@@ -648,45 +657,55 @@ Visit http://localhost:8080 to verify test site is running.
 ### Action Examples
 
 #### 1. Login Only
+
 ```bash
 ./linkedin-bot.exe -action login
 ```
+
 - Navigates to login page
 - Types credentials with human-like timing
 - Detects security checkpoints
 - Saves session cookies for reuse
 
 #### 2. Search Profiles
+
 ```bash
 ./linkedin-bot.exe -action search
 ```
+
 - Logs in (or restores session)
 - Searches based on `SEARCH_KEYWORDS` config
 - Parses profile data
 - Stores results in SQLite database
 
 #### 3. Send Connection Requests
+
 ```bash
 ./linkedin-bot.exe -action connect
 ```
+
 - Retrieves profiles from database
 - Navigates to each profile
 - Sends personalized connection requests
 - Respects daily quota limits
 
 #### 4. Send Messages
+
 ```bash
 ./linkedin-bot.exe -action message
 ```
+
 - Identifies accepted connections
 - Sends follow-up messages
 - Uses template with variable replacement
 - Tracks message history
 
 #### 5. Full Automation
+
 ```bash
 ./linkedin-bot.exe -action full
 ```
+
 - Executes complete workflow:
   1. Login/restore session
   2. Search for new profiles
@@ -701,11 +720,11 @@ Visit http://localhost:8080 to verify test site is running.
 ```yaml
 linkedin:
   base_url: "https://www.linkedin.com"
-  
+
 search:
   keywords: ["Software Engineer", "DevOps Engineer"]
   max_pages: 3
-  
+
 limits:
   max_connections_per_day: 20
   max_messages_per_day: 10
@@ -740,6 +759,7 @@ export ENABLE_STEALTH=true
 The `Test Site/` directory contains a pixel-perfect LinkedIn clone for safe testing.
 
 **Features**:
+
 - ✅ Authentic LinkedIn design (colors, fonts, layout)
 - ✅ Functional login form with same HTML IDs
 - ✅ Feed page with realistic content
@@ -760,6 +780,7 @@ cd linkedin-automation
 ```
 
 **What to Watch**:
+
 1. Chrome window opens to localhost:8080
 2. Email typed character-by-character (visible)
 3. Password typed with realistic delays
@@ -771,12 +792,14 @@ cd linkedin-automation
 ### Debugging
 
 Enable debug logging:
+
 ```bash
 export LOG_LEVEL=debug
 ./linkedin-bot.exe -action login
 ```
 
 View logs:
+
 ```bash
 tail -f logs/automation.log
 ```
@@ -790,6 +813,7 @@ tail -f logs/automation.log
 **Decision**: Use Go as the primary language
 
 **Rationale**:
+
 - **Performance**: Compiled binaries, no interpreter overhead
 - **Concurrency**: Built-in goroutines for parallel operations
 - **Type Safety**: Compile-time error detection
@@ -801,6 +825,7 @@ tail -f logs/automation.log
 **Decision**: Use Rod library for browser automation
 
 **Rationale**:
+
 - **Native CDP**: Direct Chrome DevTools Protocol communication
 - **Performance**: 3-5x faster than Selenium
 - **Reliability**: No WebDriver middleware layer
@@ -812,6 +837,7 @@ tail -f logs/automation.log
 **Decision**: Use SQLite for data persistence
 
 **Rationale**:
+
 - **Embedded**: No separate database server required
 - **Lightweight**: Single file database
 - **Sufficient**: Handles expected data volume (<100k records)
@@ -823,6 +849,7 @@ tail -f logs/automation.log
 **Decision**: Save browser cookies between runs
 
 **Rationale**:
+
 - **Speed**: Skip login on subsequent runs (save 10-15 seconds)
 - **Stealth**: Fewer login attempts = less suspicious
 - **UX**: Better developer experience
@@ -833,6 +860,7 @@ tail -f logs/automation.log
 **Decision**: YAML base config + environment variable overrides
 
 **Rationale**:
+
 - **Flexibility**: Different configs for dev/prod
 - **Security**: Credentials in .env (not committed)
 - **Defaults**: Sensible YAML defaults for most users
@@ -844,14 +872,14 @@ tail -f logs/automation.log
 
 ### Performance Metrics
 
-| Operation | Time | Notes |
-|-----------|------|-------|
-| Cold start (first login) | 15-20s | Includes browser launch |
-| Warm start (session restore) | 3-5s | Skips login |
-| Profile search (1 page) | 10-15s | Includes stealth delays |
-| Connection request | 5-8s | Per profile |
-| Message send | 4-6s | Per message |
-| Full workflow | 5-10 min | 20 connections + 10 messages |
+| Operation                    | Time     | Notes                        |
+| ---------------------------- | -------- | ---------------------------- |
+| Cold start (first login)     | 15-20s   | Includes browser launch      |
+| Warm start (session restore) | 3-5s     | Skips login                  |
+| Profile search (1 page)      | 10-15s   | Includes stealth delays      |
+| Connection request           | 5-8s     | Per profile                  |
+| Message send                 | 4-6s     | Per message                  |
+| Full workflow                | 5-10 min | 20 connections + 10 messages |
 
 ### Resource Usage
 
@@ -863,17 +891,20 @@ tail -f logs/automation.log
 ### Scalability Considerations
 
 **Current Limitations**:
+
 - Single-threaded automation (one browser instance)
 - Sequential profile processing
 - Local SQLite database
 
 **Scaling Strategies** (if needed):
+
 1. **Horizontal**: Multiple bot instances with different accounts
 2. **Database**: Migrate to PostgreSQL for concurrent access
 3. **Queue**: Add Redis/RabbitMQ for job distribution
 4. **Orchestration**: Docker Swarm or Kubernetes for management
 
 **Estimated Capacity**:
+
 - **Profiles/day**: ~200 (with 20 connection quota)
 - **Messages/day**: ~100 (with rate limiting)
 - **Database size**: ~10 MB per 1000 profiles
@@ -885,26 +916,31 @@ tail -f logs/automation.log
 ### Planned Features
 
 1. **Advanced Search Filters**
+
    - Industry, education, experience level
    - Geographic radius search
    - Company size filtering
 
 2. **Message Templates**
+
    - Multiple templates with A/B testing
    - Template analytics (response rates)
    - Dynamic content generation
 
 3. **Connection Management**
+
    - Auto-accept incoming requests
    - Connection withdrawal on non-response
    - Endorsement automation
 
 4. **Analytics Dashboard**
+
    - Web UI for statistics
    - Conversion funnel analysis
    - Response rate tracking
 
 5. **Proxy Support**
+
    - Rotating proxy integration
    - IP address management
    - Geographic distribution
@@ -936,6 +972,7 @@ This is an educational project. Contributions are welcome for:
 - Test coverage
 
 **Guidelines**:
+
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
 3. Commit changes (`git commit -m 'Add amazing feature'`)
@@ -943,6 +980,7 @@ This is an educational project. Contributions are welcome for:
 5. Open a Pull Request
 
 **Code Standards**:
+
 - Go fmt formatting
 - Godoc comments for public functions
 - Error handling (no panics in library code)
