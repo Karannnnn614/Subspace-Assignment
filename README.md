@@ -9,6 +9,10 @@
 
 **A sophisticated proof-of-concept demonstrating advanced browser automation, anti-detection techniques, and clean Go architecture**
 
+### 🎥 Demo Videos
+
+📹 **[Watch Loom Demo](https://www.loom.com/share/48f2bd3eee0240d183f08bf543eaf88f)** | 📁 **[Download Full Video (Google Drive)](https://drive.google.com/file/d/1RBTy1CaKB13tGFXejTNxovKFL6HRYPva/view?usp=sharing)**
+
 [Features](#features) • [Architecture](#system-architecture) • [Installation](#installation) • [Usage](#usage) • [Documentation](#documentation)
 
 </div>

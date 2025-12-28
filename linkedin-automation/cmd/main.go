@@ -25,8 +25,14 @@ func main() {
 
 	// Parse command line flags
 	configPath := flag.String("config", "config/config.yaml", "Path to config file")
-	action := flag.String("action", "full", "Action to perform: login, search, connect, message, full")
-	flag.Parse()
+	var action string
+	if len(os.Args) > 1 {
+		action = os.Args[1]
+	} else {
+		actionFlag := flag.String("action", "full", "Action to perform: login, search, connect, message, full, demo")
+		flag.Parse()
+		action = *actionFlag
+	}
 
 	// Initialize logger
 	log := logger.InitLogger()
@@ -82,7 +88,7 @@ func main() {
 	log.Info("✅ Successfully logged in to LinkedIn")
 
 	// Execute requested action
-	switch *action {
+	switch action {
 	case "login":
 		log.Info("✅ Login complete. Exiting...")
 		return
@@ -97,13 +103,24 @@ func main() {
 	case "message":
 		executeMessaging(cfg, log, db, page)
 
+	case "demo":
+		log.Info("🎬 Running in DEMO mode - Enhanced visibility for recording")
+		time.Sleep(2 * time.Second)
+		executeSearch(cfg, log, db, page)
+		time.Sleep(2 * time.Second)
+		executeConnect(cfg, log, db, page)
+		time.Sleep(2 * time.Second)
+		executeMessaging(cfg, log, db, page)
+		log.Info("🎬 DEMO complete - Pausing for 5 seconds before closing...")
+		time.Sleep(5 * time.Second)
+
 	case "full":
 		executeSearch(cfg, log, db, page)
 		executeConnect(cfg, log, db, page)
 		executeMessaging(cfg, log, db, page)
 
 	default:
-		log.Fatalf("Unknown action: %s", *action)
+		log.Fatalf("Unknown action: %s", action)
 	}
 
 	log.Info("🎉 Automation completed successfully!")
